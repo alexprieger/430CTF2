@@ -16,8 +16,8 @@ if ($conn->connect_error) {
 }
 
 // getting username and password from the url
-$reg_username = $_GET['user'];
-$reg_password = $_GET['pass'];
+$reg_username = $_POST['user'];
+$reg_password = $_POST['pass'];
 
 //to prevent from mysqli injection  
 $username = stripcslashes($reg_username);  
