@@ -6,7 +6,7 @@
 <body>  
     <div id = "frm">  
         <h1>Login</h1>  
-        <form name="f1" action = "login.php" onsubmit = "return validation()" method = "POST">  
+        <form name="f1" action = "login.php" onsubmit = "return validation()" method = "GET">  
             <p>  
                 <label> UserName: </label>  
                 <input type = "text" id ="user" name  = "user" />  
@@ -18,7 +18,10 @@
             <p>     
                 <input type =  "submit" id = "btn" value = "Login" />  
             </p>  
-        </form>  
+        </form>
+        <p> 
+            <button onclick="window.location.href = 'register.html';">Don't have an account? Register here</button> 
+        </p>  
     </div>   
     <script>  
             function validation()  

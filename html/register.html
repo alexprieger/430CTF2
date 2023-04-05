@@ -5,19 +5,46 @@
 		<link rel = "stylesheet" type = "text/css" href = "style.css"> 
 	</head>
 	<body>
-		<div class="register">
+		<div id="form">
 			<h1>Register</h1>
-			<form action="register.php" method="POST" autocomplete="off">
-				<label for="user">
-					<i class="fas fa-user"></i>
-				</label>
-				<input type="text" name="user" placeholder="Username" id="user" required>
-				<label for="pass">
-					<i class="fas fa-lock"></i>
-				</label>
-				<input type="pass" name="pass" placeholder="Password" id="pass" required>
-				<input type="submit" value="Register">
+			<form name="f1" action = "register.php" onsubmit = "return validation()" method = "GET"> 
+				<p>  
+					<label> UserName: </label>  
+					<input type = "text" id ="user" name  = "user" />  
+				</p>  
+				<p>  
+					<label> Password: </label>  
+					<input type = "password" id ="pass" name  = "pass" />  
+				</p>  
+				<p>     
+					<input type =  "submit" id = "btn" value = "Register" />  
+				</p>  
 			</form>
+			<p> 
+				<button onclick="window.location.href = 'login.html';">Have an account? Login here</button> 
+			</p>
 		</div>
 	</body>
 </html>
+<script>  
+	function validation()  
+	{  
+		var id=document.f1.user.value;  
+		var ps=document.f1.pass.value;  
+		if(id.length=="" && ps.length=="") {  
+			alert("User Name and Password fields are empty");  
+			return false;  
+		}  
+		else  
+		{  
+			if(id.length=="") {  
+				alert("User Name is empty");  
+				return false;  
+			}   
+			if (ps.length=="") {  
+			alert("Password field is empty");  
+			return false;  
+			}  
+		}                             
+	}  
+</script> 

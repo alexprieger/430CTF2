@@ -16,8 +16,8 @@ if ($conn->connect_error) {
 }
 
 // getting username and password from the url
-$reg_username = $_POST['user'];
-$reg_password = $_POST['pass'];
+$reg_username = $_GET['user'];
+$reg_password = $_GET['pass'];
 
 //to prevent from mysqli injection  
 $username = stripcslashes($reg_username);  
@@ -44,9 +44,14 @@ $result = mysqli_query($conn, $sql);
 if($conn->affected_rows == 1){ // Login succeeded, cookie is being set
   setcookie("auth", $cookie_value, time() + (86400 * 30)); 
   file_put_contents('php://stderr', print_r("Login successful, cookies set to " . bin2hex($cookie_value) . "\n", TRUE));
+  header("Location: success.html");
+  exit();
+
 } else{
   file_put_contents('php://stderr', print_r("Login failed: " . $conn->error . "\n", TRUE));
-  echo "Login failed.";  
+  echo "Login failed.";
+  header("Location: failure.html");
+  exit();  
 }
 
 ?>
