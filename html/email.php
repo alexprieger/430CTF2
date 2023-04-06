@@ -28,6 +28,10 @@ $count = "select * from bank.users where username= '$username'";
 
 if($count == 1) {
   //username exists -> send email to redirect to "reset.html" with username "$username"
+//   $user_hash = "select * from bank.cookies where username= '$username'";
+    $reset_link = "http://localhost:8080/reset.html?user=$username";
+    shell_exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $username");
+    // shell_exec(../mail.sh $username $reset_link);
   
 }
 
