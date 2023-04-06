@@ -2,12 +2,9 @@
 $servername = "localhost";
 $username = "server";
 $password = "pbN967bgWUAgdb5X3BmBxI2F";
-$dbname = "bank";
+$dbname = "mydb";
 
 $numberOfDesiredBytes = 16;
-$cookies = null;
-
-file_put_contents('php://stderr', print_r("Registering\n", TRUE));
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -22,49 +19,31 @@ $reg_password = $_GET['pass'];
 
 //prevent mysqli injection
 $username = stripcslashes($reg_username);  
-$password = stripcslashes($reg_password);  
 $username = mysqli_real_escape_string($conn, $username);  
-$password = mysqli_real_escape_string($conn, $password);
-
-// we can't require passwords to be strong according to assignment - desiree
-
-// verify that the username is not already taken
-$sql = "SELECT username FROM users WHERE username = '$username'";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-  file_put_contents('php://stderr', print_r("Username already taken\n", TRUE));
-  echo "Username already taken";
-  exit();
-}
 
 // initialize a salt value for the user
-$salt = random_bytes($numberOfDesiredBytes);
+$salt = random_bytes($numberOfDesiredBytes); // Binary format, needs to be treated as such in SQL with X'"..."
 
 // hashing password
-$hashed_password = hash("sha256", $password.$salt); 
+$hashed_password = md5($reg_password . $salt); // Formatted as ASCII characters of hexadecimal representation
 
 // enter the data into the database
-$sql = "INSERT INTO users (username, password, salt)
-VALUES ('$username', '$hashed_password', X'" . bin2hex($salt) . "')";
-$result = $conn->query($sql);
+$sql = "INSERT INTO users (username, hashed_password, asymmetric_encrypted_password, salt)
+VALUES ('$username', '$hashed_password', '$hashed_password', X'" . bin2hex($salt) . "')"; // TODO: Add properly asymmetrically encrypted password
 
-if(!$result) {
-  file_put_contents('php://stderr', print_r("Error creating record with statement: " . $sql . ", gave error: " . $conn->error . "\n", TRUE));
-}
+// The error code returned when a query attempts to insert a value with a primary key that has already been used
+// In this case, it's caused by the username having already been taken
+const MYSQLI_DUPLICATE_KEY_ERRNO = 1062;
 
-$last_id = $conn->insert_id;
-
-$sql = "INSERT INTO balances (users_iduser)
-VALUES ({$last_id})";
-$result = $conn->query($sql);
-
-if(!$result) {
-  file_put_contents('php://stderr', print_r("Error creating record: " . $conn->error . "\n", TRUE));
-  echo "Error creating record";
-} else {
-  file_put_contents('php://stderr', print_r("New record created successfully\n", TRUE));
-  echo "New record created successfully";
+try {
+	$result = $conn->query($sql);
+	echo "New account created successfully";
+} catch (mysqli_sql_exception $e) {
+	if ($e->getCode() == MYSQLI_DUPLICATE_KEY_ERRNO) {
+		echo "That username has already been taken";
+	} else {
+		echo "An unknown error occurred";
+	}
 }
 
 // close the connection
