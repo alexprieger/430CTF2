@@ -31,8 +31,10 @@ if($count == 1) {
 //   $user_hash = "select * from bank.cookies where username= '$username'";
     $email = $username + "@usc.edu";
     $reset_link = "http://localhost:8080/reset.html?user=$username";
-    shell_exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
+    exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
     // shell_exec(../mail.sh $username $reset_link);
+    header("Location: success.html");
+    exit();
   
 }
 
