@@ -1,13 +1,11 @@
 <?php
+
+alert("in email.php");
 // the link in the email should redirect to "reset.html"
 $servername = "localhost";
 $username = "server";
 $password = "pbN967bgWUAgdb5X3BmBxI2F";
-$dbname = "bank";
-
-file_put_contents('php://stderr', print_r("Logging in\n", TRUE));
-
-$numberOfDesiredBytes = 16;
+$dbname = "mydb";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -18,6 +16,7 @@ if ($conn->connect_error) {
 
 // getting username and password from the url
 $reg_username = $_GET['user'];
+alert($reg_username);
 
 $username = stripcslashes($reg_username);  
 
@@ -28,7 +27,7 @@ $retrieve_salt_sql = "SELECT * FROM users WHERE username = '$username' LIMIT 1";
 try {
 	$salt_result = $conn->query($retrieve_salt_sql);
 } catch (mysqli_sql_exception $e) {
-	die("Error logging in: " . $e->getMessage());
+	die("Error finding user in: " . $e->getMessage());
 }
 $salt_object = $salt_result->fetch_object();  
 
