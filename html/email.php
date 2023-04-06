@@ -44,5 +44,8 @@ if($salt_object != null) {
   exit();
   
 }
+else{
+  alert("Can't find user");
+}
 
 ?>
