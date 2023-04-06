@@ -27,7 +27,8 @@ $count = "select * from bank.users where username= '$username'";
 
 
 if($count == 1) {
-  //username exists -> send email to redirect to "reset.html"
+  //username exists -> send email to redirect to "reset.html" with username "$username"
+  
 }
 
 ?>
