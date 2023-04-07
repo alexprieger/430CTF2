@@ -22,26 +22,25 @@ alert("in email.php");
 
 // $username = mysqli_real_escape_string($conn, $username); 
 
-// // retrieving salt
-// $retrieve_salt_sql = "SELECT * FROM users WHERE username = '$username' LIMIT 1";
-// try {
-// 	$salt_result = $conn->query($retrieve_salt_sql);
-// } catch (mysqli_sql_exception $e) {
-// 	die("Error finding user in: " . $e->getMessage());
-// }
-// $salt_object = $salt_result->fetch_object();  
-header("Location: success.html");
-exit();
-// if($salt_object != null) {
-//   alert("user found!");
-//   $salt_value = $salt_object->salt; // Binary format
+// $username = stripcslashes($reg_username);  
+
+// $username = mysqli_real_escape_string($conn, $username); 
+
+// $count = "select * from bank.users where username= '$username'";
+
+
+// if($count == 1) {
 //   //username exists -> send email to redirect to "reset.html" with username "$username"
-//   $email = $username + "@usc.edu";
-//   $reset_link = "http://localhost:8080/reset.html?user=$username";
-//   exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
-//   // shell_exec(../mail.sh $username $reset_link);
-//   header("Location: success.html");
-//   exit();
+// //   $user_hash = "select * from bank.cookies where username= '$username'";
+//     $email = $username + "@usc.edu";
+//     $reset = random_bytes($numberOfDesiredBytes);
+//     $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
+
+//     $reset_link = "http://3.133.129.167/reset.html?reset=$reset";
+//     exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
+//     // shell_exec(../mail.sh $username $reset_link);
+//     header("Location: success.html");
+//     exit();
   
 // }
 // else{
