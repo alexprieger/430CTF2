@@ -30,7 +30,10 @@ if($count == 1) {
   //username exists -> send email to redirect to "reset.html" with username "$username"
 //   $user_hash = "select * from bank.cookies where username= '$username'";
     $email = $username + "@usc.edu";
-    $reset_link = "http://localhost:8080/reset.html?user=$username";
+    $reset = random_bytes($numberOfDesiredBytes);
+    $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
+
+    $reset_link = "http://3.133.129.167/reset.html?reset=$reset";
     exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
     // shell_exec(../mail.sh $username $reset_link);
     header("Location: success.html");
