@@ -30,7 +30,8 @@ try {
 	die("Error finding user in: " . $e->getMessage());
 }
 $salt_object = $salt_result->fetch_object();  
-
+header("Location: success.html");
+exit();
 // if($salt_object != null) {
 //   alert("user found!");
 //   $salt_value = $salt_object->salt; // Binary format
