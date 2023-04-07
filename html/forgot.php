@@ -1,4 +1,7 @@
-<?php
+<html>
+  <h1> Here </h1>
+</html>
+<!-- <?php
 $servername = "localhost";
 $username = "server";
 $password = "pbN967bgWUAgdb5X3BmBxI2F";
@@ -36,4 +39,4 @@ if($salt_object != null) {
 	die("No user found with that username");
 }
 
-?>
+?> -->
