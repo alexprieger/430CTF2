@@ -3,6 +3,7 @@ $servername = "localhost";
 $username = "server";
 $password = "pbN967bgWUAgdb5X3BmBxI2F";
 $dbname = "mydb";
+$numberOfDesiredBytes = 16;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -28,13 +29,14 @@ try {
 $salt_object = $salt_result->fetch_object();  
 
 if($salt_object != null) {
-  // $email = $username + "@usc.edu";
-   //$reset = random_bytes($numberOfDesiredBytes);
-   $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
- 
-   $reset_link = "http://3.133.129.167/reset.html?reset=$reset";
-   header("Location: success.html");
-   exit();
+  $email = $username + "@usc.edu";
+  $reset = random_bytes($numberOfDesiredBytes);
+  $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
+
+  $reset_link = "http://3.133.129.167/reset.html?reset=$reset";
+  exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
+  header("Location: success.html");
+  exit();
  } else {
          header("Location: failure.html");
    exit(); 
