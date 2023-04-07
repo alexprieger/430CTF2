@@ -31,20 +31,20 @@ try {
 }
 $salt_object = $salt_result->fetch_object();  
 
-if($salt_object != null) {
-  alert("user found!");
-  $salt_value = $salt_object->salt; // Binary format
-  //username exists -> send email to redirect to "reset.html" with username "$username"
-  $email = $username + "@usc.edu";
-  $reset_link = "http://localhost:8080/reset.html?user=$username";
-  exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
-  // shell_exec(../mail.sh $username $reset_link);
-  header("Location: success.html");
-  exit();
+// if($salt_object != null) {
+//   alert("user found!");
+//   $salt_value = $salt_object->salt; // Binary format
+//   //username exists -> send email to redirect to "reset.html" with username "$username"
+//   $email = $username + "@usc.edu";
+//   $reset_link = "http://localhost:8080/reset.html?user=$username";
+//   exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
+//   // shell_exec(../mail.sh $username $reset_link);
+//   header("Location: success.html");
+//   exit();
   
-}
-else{
-  alert("Can't find user");
-}
+// }
+// else{
+//   alert("Can't find user");
+// }
 
 ?>
