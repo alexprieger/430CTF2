@@ -1,5 +1,5 @@
 <html>
-    <form name="f1" action = "email.php" onsubmit = "return validation()" method = "GET">  
+    <form name="f1" action = "login.php" onsubmit = "return validation()" method = "GET">  
             <p>  
                 <label> Username: </label>  
                 <input type = "text" id ="user" name  = "user" />  
@@ -12,11 +12,11 @@
     <script>  
         function validation()  
         {  
-            var ps=document.f1.user.value;  
-            if(id.length=="" && ps.length=="") {  
-                alert("Password fields are empty");  
-                return false;  
-            }                              
+            // var ps=document.f1.user.value;  
+            // if(id.length=="" && ps.length=="") {  
+            //     alert("Password fields are empty");  
+            //     return false;  
+            // }                              
         }  
     </script>
 </html>
