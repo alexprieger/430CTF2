@@ -17,6 +17,36 @@ if ($conn->connect_error) {
 $reg_username = $_GET['user'];
 $reg_password = $_GET['pass'];
 
+// validate password
+if (!ctype_lower($reg_password)) { // check if everything is lowercase
+	echo "Password must be completely lowercase";
+	return;
+}
+
+$split_pass = explode("-",$reg_password);
+if(sizeof($split_pass) < 8) { // check if there are at least 8 words
+	echo "Password must be at least 8 words long";
+	return;
+}
+
+// check if all words are in the dictionary
+$file = fopen("dictionary.txt", "r");
+for($i=0; $i < sizeof($split_pass); $i++) {
+	$found = false;
+	while(!feof($file)) {
+		$line = fgets($file);
+		if($line == $split_pass[$i]) {
+			$found = true;
+			break;
+		}
+	}
+	if(!$found) {
+		echo "Password must be a valid dictionary word";
+		return;
+	}
+}
+$fclose($file);
+
 //prevent mysqli injection
 $username = stripcslashes($reg_username);  
 $username = mysqli_real_escape_string($conn, $username);  
