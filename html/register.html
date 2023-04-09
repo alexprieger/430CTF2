@@ -12,9 +12,19 @@
 					<label> UserName: </label>  
 					<input type = "text" id ="user" name  = "user" />  
 				</p>  
+				<p>	
+					Passwords should be at least 8 words long, contain only lowercase letters, and have each word seperated by a dash "-".
+				</p>
+				<p>
+					Example: "hello-world-i-am-a-password-so-secure"
+				</p>
 				<p>  
 					<label> Password: </label>  
 					<input type = "password" id ="pass" name  = "pass" />  
+				</p>  
+				<p>  
+					<label> Retype Password: </label>  
+					<input type = "password" id ="pass2" name  = "pass2" />  
 				</p>  
 				<p>     
 					<input type =  "submit" id = "btn" value = "Register" />  
@@ -31,6 +41,13 @@
 	{  
 		var id=document.f1.user.value;  
 		var ps=document.f1.pass.value;  
+		var ps2=document.f1.pass2.value;
+
+		if(ps != ps2) {
+			alert("Passwords do not match");
+			return false;
+		}
+
 		if(id.length=="" && ps.length=="") {  
 			alert("User Name and Password fields are empty");  
 			return false;  
@@ -41,7 +58,7 @@
 				alert("User Name is empty");  
 				return false;  
 			}   
-			if (ps.length=="") {  
+			if (ps.length=="" || ps2.length=="") {  
 			alert("Password field is empty");  
 			return false;  
 			}  
