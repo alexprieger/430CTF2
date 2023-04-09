@@ -36,7 +36,7 @@ foreach($split_pass as $word) {
 $file = fopen("dictionary.txt", "r");
 for($i=0; $i < sizeof($split_pass); $i++) {
 	$found = false;
-	echo $split_pass[$i];
+	echo "searching for:" .$split_pass[$i];
 	while(!feof($file)) {
 		$line = fgets($file);
 		echo $line . " and ". $split_pass[$i];
