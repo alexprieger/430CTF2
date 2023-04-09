@@ -24,7 +24,7 @@ if(sizeof($split_pass) < 8) { // check if there are at least 8 words
 }
 
 
-for each($split_pass as $word) {
+foreach($split_pass as $word) {
 	echo $word;
 	if (!ctype_lower($word)) { // check if everything is lowercase
 		echo "Password must be completely lowercase";
