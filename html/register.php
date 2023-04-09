@@ -51,8 +51,8 @@ for($i=0; $i < sizeof($split_pass); $i++) {
 }
 $fclose($file);
 
-echo "Password is valid.";
-/*
+//echo "Password is valid.";
+
 //prevent mysqli injection
 $username = stripcslashes($reg_username);  
 $username = mysqli_real_escape_string($conn, $username);  
@@ -84,5 +84,5 @@ try {
 
 // close the connection
 $conn->close();
-*/
+
 ?>
