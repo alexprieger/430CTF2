@@ -41,7 +41,7 @@ try{
 		while(!feof($file)) {
 			$line = fgets($file);
 			if(trim($line) == trim($split_pass[$i])) {
-				echo " " . $line . " matches " . $split_pass[$i];
+				//echo " " . $line . " matches " . $split_pass[$i];
 				$found = true;
 				rewind($file);
 				break;
@@ -58,7 +58,7 @@ try{
 }
 
 
-echo "made it pass the third check";
+//echo "made it pass the third check";
 //echo "Password is valid.";
 
 //prevent mysqli injection
