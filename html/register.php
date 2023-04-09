@@ -52,7 +52,7 @@ try{
 			return;
 		}
 	}
-	$fclose($file);
+	fclose($file);
 } catch(Exception $e) {
 	echo "Error: " . $e->getMessage();
 }
