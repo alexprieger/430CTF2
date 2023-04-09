@@ -39,8 +39,9 @@ for($i=0; $i < sizeof($split_pass); $i++) {
 	echo "searching for:" .$split_pass[$i];
 	while(!feof($file)) {
 		$line = fgets($file);
-		echo $line . " and ". $split_pass[$i];
-		if($line == $split_pass[$i]) {
+		echo $line . " and ". $split_pass[$i]. " ";
+		//if($line === $split_pass[$i]) {
+		if(strcmp($line, $split_pass[$i]) == 0){
 			$found = true;
 			break;
 		}
