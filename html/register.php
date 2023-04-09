@@ -36,28 +36,27 @@ foreach($split_pass as $word) {
 // check if all words are in the dictionary
 try{
 	$file = fopen("dictionary.txt", "r");
+	for($i=0; $i < sizeof($split_pass); $i++) {
+		$found = false;
+		while(!feof($file)) {
+			$line = fgets($file);
+			if(trim($line) == trim($split_pass[$i])) {
+				echo " " . $line . " matches " . $split_pass[$i];
+				$found = true;
+				rewind($file);
+				break;
+			}
+		}
+		if(!$found) {
+			echo "Password only have valid dictionary words: ". $split_pass[$i]." is not a valid word";
+			return;
+		}
+	}
+	$fclose($file);
 } catch(Exception $e) {
 	echo "Error: " . $e->getMessage();
 }
 
-for($i=0; $i < sizeof($split_pass); $i++) {
-	$found = false;
-	while(!feof($file)) {
-		$line = fgets($file);
-		if(trim($line) == trim($split_pass[$i])) {
-			//echo $line . " matches " . $split_pass[$i];
-			$found = true;
-			rewind($file);
-			break;
-		}
-	}
-	if(!$found) {
-		echo "Password only have valid dictionary words: ". $split_pass[$i]." is not a valid word";
-		return;
-	}
-}
-
-$fclose($file);
 
 echo "made it pass the third check";
 //echo "Password is valid.";
