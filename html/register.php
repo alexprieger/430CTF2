@@ -38,11 +38,12 @@ try{
 	$file = fopen("dictionary.txt", "r");
 	for($i=0; $i < sizeof($split_pass); $i++) {
 		$found = false;
-		rewind($file);
 		while(!feof($file)) {
 			$line = fgets($file);
 			if(trim($line) == trim($split_pass[$i])) {
+				echo $line . " matches " . $split_pass[$i];
 				$found = true;
+				rewind($file);
 				break;
 			}
 		}
