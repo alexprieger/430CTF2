@@ -36,7 +36,6 @@ foreach($split_pass as $word) {
 $file = fopen("dictionary.txt", "r");
 for($i=0; $i < sizeof($split_pass); $i++) {
 	$found = false;
-	echo "searching for:" .$split_pass[$i];
 	rewind($file);
 	while(!feof($file)) {
 		$line = fgets($file);
@@ -51,6 +50,8 @@ for($i=0; $i < sizeof($split_pass); $i++) {
 	}
 }
 $fclose($file);
+
+echo "Password is valid.";
 
 //prevent mysqli injection
 $username = stripcslashes($reg_username);  
