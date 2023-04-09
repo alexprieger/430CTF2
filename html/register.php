@@ -23,6 +23,7 @@ if(sizeof($split_pass) < 8) { // check if there are at least 8 words
 	return;
 }
 
+echo "made it pass the first check";
 
 foreach($split_pass as $word) {
 	if (!ctype_lower($word)) { // check if everything is lowercase
@@ -31,7 +32,7 @@ foreach($split_pass as $word) {
 	}
 }
 
-
+echo "made it pass the second check";
 // check if all words are in the dictionary
 try{
 	$file = fopen("dictionary.txt", "r");
@@ -56,6 +57,7 @@ try{
 }
 
 
+echo "made it pass the third check";
 //echo "Password is valid.";
 
 //prevent mysqli injection
