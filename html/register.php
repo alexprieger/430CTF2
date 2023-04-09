@@ -40,8 +40,7 @@ for($i=0; $i < sizeof($split_pass); $i++) {
 	while(!feof($file)) {
 		$line = fgets($file);
 		echo $line . " and ". $split_pass[$i]. " ";
-		//if($line === $split_pass[$i]) {
-		if(strcmp($line, $split_pass[$i]) == 0){
+		if(trim($line) == trim($split_pass[$i])) {
 			$found = true;
 			break;
 		}
