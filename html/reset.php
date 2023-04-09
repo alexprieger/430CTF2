@@ -15,6 +15,50 @@ if ($conn->connect_error) {
 $reg_username = $_GET['user'];
 $reg_password = $_GET['password'];
 
+$split_pass = explode("-",$reg_password);
+if(sizeof($split_pass) < 8) { // check if there are at least 8 words
+	echo "Password must be at least 8 words long";
+	return;
+}
+
+//echo "made it pass the first check";
+
+foreach($split_pass as $word) {
+	if (!ctype_lower($word)) { // check if everything is lowercase
+		echo "Password must be completely lowercase";
+		return;
+	}
+}
+
+//echo "made it pass the second check";
+// check if all words are in the dictionary
+try{
+	$file = fopen("dictionary.txt", "r");
+	for($i=0; $i < sizeof($split_pass); $i++) {
+		$found = false;
+		while(!feof($file)) {
+			$line = fgets($file);
+			if(trim($line) == trim($split_pass[$i])) {
+				//echo " " . $line . " matches " . $split_pass[$i];
+				$found = true;
+				rewind($file);
+				break;
+			}
+		}
+		if(!$found) {
+			echo "Password only have valid dictionary words: ". $split_pass[$i]." is not a valid word";
+			return;
+		}
+	}
+	fclose($file);
+} catch(Exception $e) {
+	echo "Error: " . $e->getMessage();
+}
+
+
+//echo "made it pass the third check";
+//echo "Password is valid.";
+
 //to prevent from mysqli injection  
 $username = stripcslashes($reg_username);  
 $username = mysqli_real_escape_string($conn, $username);  
