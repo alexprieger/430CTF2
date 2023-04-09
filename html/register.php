@@ -37,9 +37,9 @@ $file = fopen("dictionary.txt", "r");
 for($i=0; $i < sizeof($split_pass); $i++) {
 	$found = false;
 	echo "searching for:" .$split_pass[$i];
+	rewind($file);
 	while(!feof($file)) {
 		$line = fgets($file);
-		echo $line . " and ". $split_pass[$i]. " ";
 		if(trim($line) == trim($split_pass[$i])) {
 			$found = true;
 			break;
