@@ -28,10 +28,12 @@ try {
 	die("Error logging in: " . $e->getMessage());
 }
 $salt_object = $salt_result->fetch_object();  
+echo "salt_object is: " . $salt_object ." ";
 
 if($salt_object != null) {
   $email = $username + "@usc.edu";
   $reset = random_bytes($numberOfDesiredBytes);
+  echo "reset is: " . $reset ." ";
   $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
   echo "sql_reset is: " . $sql_reset;
 
