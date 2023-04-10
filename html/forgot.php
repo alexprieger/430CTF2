@@ -31,7 +31,8 @@ $salt_object = $salt_result->fetch_object();
 echo " salt_object done ";
 
 if($salt_object != null) {
-  $email = $username + "@usc.edu";
+  $email = $username . "@usc.edu";
+  echo " email is: " . $email;
   // $reset = random_bytes($numberOfDesiredBytes);
   $reset = "1234567890123456";
 
