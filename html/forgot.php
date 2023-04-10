@@ -33,8 +33,8 @@ echo " salt_object done ";
 if($salt_object != null) {
   $email = $username . "@usc.edu";
   echo " email is: " . $email;
-  // $reset = random_bytes($numberOfDesiredBytes);
-  $reset = "1234567890123456";
+  $reset = random_bytes($numberOfDesiredBytes);
+  echo " reset is: " . $reset;
 
   // $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
   // try {
