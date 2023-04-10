@@ -14,6 +14,7 @@ if ($conn->connect_error) {
 
 // getting username and password from the url
 $reg_username = $_GET['user'];
+console.log($reg_username)
 
 //to prevent from mysqli injection  
 $username = stripcslashes($reg_username);  
@@ -29,12 +30,13 @@ try {
 $salt_object = $salt_result->fetch_object();  
 
 if($salt_object != null) {
+  console.log("made it here");
   $email = $username + "@usc.edu";
-  // $reset = random_bytes($numberOfDesiredBytes);
-  // $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
+  $reset = random_bytes($numberOfDesiredBytes);
+  $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
 
-  // $reset_link = "http://3.133.129.167/reset.html?reset=$reset";
-  // exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
+  $reset_link = "http://3.133.129.167/reset.html?reset=$reset";
+  exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
   header("Location: success.html");
   exit();
  } else {
