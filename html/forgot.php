@@ -50,9 +50,8 @@ if($salt_object != null) {
   // // $output = shell_exec($shell_cmd);
   // // echo $output;
   $output2 = shell_exec("bash ./mail.sh $reset_link $email");
-  // // echo $output2;
-  echo " Reset link sent to $email";
-  header("Location: success.html");
+
+  // header("Location: success.html");
   exit();
  } else {
          header("Location: failure.html");
