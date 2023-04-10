@@ -34,6 +34,7 @@ if($salt_object != null) {
   $email = $username . "@usc.edu";
   echo " email is: " . $email;
   $reset = random_bytes($numberOfDesiredBytes);
+  $reset = bin2hex($reset);
   echo " reset is: " . $reset;
 
   // $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
@@ -43,7 +44,7 @@ if($salt_object != null) {
   //   die("Error updating reset: " . $e->getMessage());
   // }
 
-  $reset_link = "http://3.133.129.167/reset.html?reset=$reset";
+  $reset_link = "3.133.129.167/reset.html?reset=$reset";
   echo "\nReset link is: " . $reset_link;
   // // $shell_cmd = "echo "Reset your password here: $reset_link" | mail -s "CTF Team 4 Reset Password" $email";
   // // exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
