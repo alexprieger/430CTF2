@@ -32,20 +32,20 @@ echo "salt_object is: " . $salt_object ." ";
 
 if($salt_object != null) {
   $email = $username + "@usc.edu";
-  $reset = random_bytes($numberOfDesiredBytes);
-  echo "reset is: " . $reset ." ";
-  $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
-  echo "sql_reset is: " . $sql_reset;
+  // $reset = random_bytes($numberOfDesiredBytes);
+  // echo "reset is: " . $reset ." ";
+  // $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
+  // echo "sql_reset is: " . $sql_reset;
 
-  $reset_link = "http://3.133.129.167/reset.html?reset=$reset";
-  echo "\nReset link is: " . $reset_link;
-  // $shell_cmd = "echo "Reset your password here: $reset_link" | mail -s "CTF Team 4 Reset Password" $email";
-  // exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
-  // $output = shell_exec($shell_cmd);
-  // echo $output;
-  $output2 = shell_exec("bash ./mail.sh $reset_link $email");
-  // echo $output2;
-  echo "Reset link sent to $email";
+  // $reset_link = "http://3.133.129.167/reset.html?reset=$reset";
+  // echo "\nReset link is: " . $reset_link;
+  // // $shell_cmd = "echo "Reset your password here: $reset_link" | mail -s "CTF Team 4 Reset Password" $email";
+  // // exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
+  // // $output = shell_exec($shell_cmd);
+  // // echo $output;
+  // $output2 = shell_exec("bash ./mail.sh $reset_link $email");
+  // // echo $output2;
+  echo " Reset link sent to $email";
   header("Location: success.html");
   exit();
  } else {
