@@ -13,7 +13,6 @@ if ($conn->connect_error) {
 }
 // getting username and password from the url
 $reg_username = $_GET['user'];
-echo "username is: " . $reg_username ." ";
 
 //to prevent from mysqli injection  
 $username = stripcslashes($reg_username);  
@@ -21,38 +20,33 @@ $username = mysqli_real_escape_string($conn, $username);
 
 // retrieving salt
 $retrieve_salt_sql = "SELECT * FROM users WHERE username = '$username' LIMIT 1";
-echo " done with salt sql ";
 try {
 	$salt_result = $conn->query($retrieve_salt_sql);
 } catch (mysqli_sql_exception $e) {
 	die("Error logging in: " . $e->getMessage());
 }
 $salt_object = $salt_result->fetch_object();  
-echo " salt_object done ";
 
 if($salt_object != null) {
   $email = $username . "@usc.edu";
-  echo " email is: " . $email;
+  // echo " email is: " . $email;
   $reset = random_bytes($numberOfDesiredBytes);
   $reset = bin2hex($reset);
-  echo " reset is: " . $reset;
+  // echo " reset is: " . $reset;
 
-  // $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
-  // try {
-  //   $result = mysqli_query($conn, $sql_reset);
-  // } catch (mysqli_sql_exception $e) {
-  //   die("Error updating reset: " . $e->getMessage());
-  // }
+  $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
+  try {
+    $result = mysqli_query($conn, $sql_reset);
+  } catch (mysqli_sql_exception $e) {
+    die("Error updating reset: " . $e->getMessage());
+  }
 
   $reset_link = "3.133.129.167/reset.html?reset=$reset";
-  echo "\nReset link is: " . $reset_link;
-  // // $shell_cmd = "echo "Reset your password here: $reset_link" | mail -s "CTF Team 4 Reset Password" $email";
-  // // exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
-  // // $output = shell_exec($shell_cmd);
-  // // echo $output;
-  $output2 = shell_exec("bash ./mail.sh $reset_link $email");
+  // echo "\nReset link is: " . $reset_link;
 
-  // header("Location: success.html");
+  $output = shell_exec("bash ./mail.sh $reset_link $email");
+
+  header("Location: success.html");
   exit();
  } else {
          header("Location: failure.html");
