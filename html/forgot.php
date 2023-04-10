@@ -35,10 +35,10 @@ if($salt_object != null) {
   $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
 
   $reset_link = "http://3.133.129.167/reset.html?reset=$reset";
-  $shell_cmd = "echo "Reset your password here: $reset_link" | mail -s "CTF Team 4 Reset Password" $email";
+  // $shell_cmd = "echo "Reset your password here: $reset_link" | mail -s "CTF Team 4 Reset Password" $email";
   // exec("echo \"Reset your password here: $reset_link\" | mail -s \"CTF Team 4 Reset Password\" $email");
-  $output = shell_exec($shell_cmd);
-  echo $output;
+  // $output = shell_exec($shell_cmd);
+  // echo $output;
   $output2 = shell_exec("bash ./mail.sh $reset_link $email");
   echo $output2;
   echo "Email sent to $email";
