@@ -32,9 +32,15 @@ echo " salt_object done ";
 
 if($salt_object != null) {
   $email = $username + "@usc.edu";
-  $reset = random_bytes($numberOfDesiredBytes);
-  echo "reset is: " . $reset ." ";
-  $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
+  // $reset = random_bytes($numberOfDesiredBytes);
+  $reset = "1234567890123456";
+
+  // $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
+  // try {
+  //   $result = mysqli_query($conn, $sql_reset);
+  // } catch (mysqli_sql_exception $e) {
+  //   die("Error updating reset: " . $e->getMessage());
+  // }
 
   $reset_link = "http://3.133.129.167/reset.html?reset=$reset";
   echo "\nReset link is: " . $reset_link;
