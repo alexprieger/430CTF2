@@ -14,9 +14,10 @@ if ($conn->connect_error) {
 // getting username and password from the url
 $user_reset = $_GET['reset'];
 echo " user reset " . $user_reset;
+$decoded_reset = hex2bin($user_reset);
 $reg_password = $_GET['password'];
 
-$user_sql = "SELECT * FROM users WHERE reset = '$user_reset' LIMIT 1";
+$user_sql = "SELECT * FROM users WHERE reset = '$decoded_reset' LIMIT 1";
 try {
 	$user_result = $conn->query($user_sql);
 } catch (mysqli_sql_exception $e) {
