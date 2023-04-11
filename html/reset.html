@@ -6,6 +6,8 @@
         <p>
             Example: "hello-world-i-am-a-password-so-secure"
         </p>    
+        <input type = "hidden" id ="reset" name  = "reset" value = "" />
+        <!-- get reset value from current url -->
         <p>  
                 <label> New Password: </label>  
                 <input type = "text" id ="password" name  = "password" />  
@@ -22,6 +24,9 @@
     <script>  
         function validation()  
         {  
+            const urlParams = new URLSearchParams(window.location.search);
+            const resetParam = urlParams.get('reset');
+            document.getElementById("reset").value = resetParam;
             var ps=document.f1.password.value;  
             if(id.length=="" && ps.length=="") {  
                 alert("Password fields are empty");  

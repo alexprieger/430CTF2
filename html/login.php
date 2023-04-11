@@ -70,11 +70,26 @@ while (($line = fgets($login_file)) !== false)
 }
 
 if($user_object != null) { // Login succeeded
+	$sql = "UPDATE users SET num_login_success = num_login_success + 1 WHERE username = '$username' LIMIT 1";
+	try {
+		mysqli_query($conn, $sql);
+	} catch (mysqli_sql_exception $e) {
+		die("Error logging in: " . $e->getMessage());
+	}
   $successful_logins++;
-  header("Location: success.html");
+	header("Location: success.html");
+  exit();
 } else { // Login failed, passwords did not match
+  $sql = "UPDATE users SET num_login_fail = num_login_fail + 1 WHERE username = '$username' LIMIT 1";
+	try {
+		mysqli_query($conn, $sql);
+	} catch (mysqli_sql_exception $e) {
+		die("Error logging in: " . $e->getMessage());
+	}
   $failed_logins++;
-  header("Location: failure.html");
+	header("Location: failure.html");
+  exit();  
+
 }
 
 $total_logins = $successful_logins + $failed_logins;
