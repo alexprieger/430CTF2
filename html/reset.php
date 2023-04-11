@@ -12,14 +12,27 @@ if ($conn->connect_error) {
 }
 
 // getting username and password from the url
-$reg_username = $_GET['user'];
 $user_reset = $_GET['reset'];
 echo " user reset " . $user_reset;
 $reg_password = $_GET['password'];
 
+$user_sql = "SELECT * FROM users WHERE reset = '$user_reset' LIMIT 1";
+try {
+	$user_result = $conn->query($user_sql);
+} catch (mysqli_sql_exception $e) {
+	die("Error logging in: " . $e->getMessage());
+}
+$username_object = $user_result->fetch_object();  
+if ($username_object != null) {
+	$username = $username_object->username;
+} else {
+	die("No user found with that reset code");
+}
+echo " username is " . $username;
+
 $split_pass = explode("-",$reg_password);
 if(sizeof($split_pass) < 8) { // check if there are at least 8 words
-	echo "Password must be at least 8 words long and user reset is " . $user_reset . " and username is " . $reg_username;
+	echo "Password must be at least 8 words long";
 	return;
 }
 
@@ -62,8 +75,8 @@ try{
 //echo "Password is valid.";
 
 //to prevent from mysqli injection  
-$username = stripcslashes($reg_username);  
-$username = mysqli_real_escape_string($conn, $username);  
+// $username = stripcslashes($reg_username);  
+// $username = mysqli_real_escape_string($conn, $username);  
 
 // retrieving salt
 $retrieve_salt_sql = "SELECT * FROM users WHERE username = '$username' LIMIT 1";
