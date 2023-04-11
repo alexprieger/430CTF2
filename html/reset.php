@@ -19,7 +19,7 @@ $reg_password = $_GET['password'];
 
 $split_pass = explode("-",$reg_password);
 if(sizeof($split_pass) < 8) { // check if there are at least 8 words
-	echo "Password must be at least 8 words long";
+	echo "Password must be at least 8 words long and user reset is " . $user_reset . " and username is " . $reg_username;
 	return;
 }
 
