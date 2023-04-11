@@ -17,18 +17,21 @@ if ($conn->connect_error) {
 $reg_username = $_GET['user'];
 $reg_password = $_GET['pass'];
 
+if($reg_password == "hello-world-i-am-a-password-so-secure") {
+	die("Password may not be the example password");
+}
+
+
 $split_pass = explode("-",$reg_password);
 if(sizeof($split_pass) < 8) { // check if there are at least 8 words
-	echo "Password must be at least 8 words long";
-	return;
+	die("Password must be at least 8 words long");
 }
 
 //echo "made it pass the first check";
 
 foreach($split_pass as $word) {
 	if (!ctype_lower($word)) { // check if everything is lowercase
-		echo "Password must be completely lowercase";
-		return;
+		die("Password must be completely lowercase");
 	}
 }
 
@@ -48,8 +51,7 @@ try{
 			}
 		}
 		if(!$found) {
-			echo "Password only have valid dictionary words: ". $split_pass[$i]." is not a valid word";
-			return;
+			die("Password only have valid dictionary words: ". $split_pass[$i]." is not a valid word");
 		}
 	}
 	fclose($file);

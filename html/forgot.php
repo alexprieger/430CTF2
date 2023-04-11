@@ -34,7 +34,7 @@ if($salt_object != null) {
   $reset_hex = bin2hex($reset);
   // echo " reset is: " . $reset;
 
-  $sql_reset = "UPDATE users SET reset = '$reset' WHERE username= '$username'";
+  $sql_reset = "UPDATE users SET reset = X'" . $reset_hex . "' WHERE username= '$username'";
   try {
     $result = mysqli_query($conn, $sql_reset);
   } catch (mysqli_sql_exception $e) {
@@ -46,10 +46,10 @@ if($salt_object != null) {
 
   $output = shell_exec("bash ./mail.sh $reset_link $email");
 
-  header("Location: success.html");
+  header("Location: reset_email_success.html");
   exit();
  } else {
-         header("Location: failure.html");
+         header("Location: reset_email_failure.html");
    exit(); 
  }
 

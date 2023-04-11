@@ -44,10 +44,22 @@ try {
 $user_object = $result->fetch_object();
 
 if($user_object != null) { // Login succeeded
+	$sql = "UPDATE users SET num_login_success = num_login_success + 1 WHERE username = '$username' LIMIT 1";
+	try {
+		mysqli_query($conn, $sql);
+	} catch (mysqli_sql_exception $e) {
+		die("Error logging in: " . $e->getMessage());
+	}
 	header("Location: success.html");
   exit();
 } else { // Login failed, passwords did not match
-  header("Location: failure.html");
+  $sql = "UPDATE users SET num_login_fail = num_login_fail + 1 WHERE username = '$username' LIMIT 1";
+	try {
+		mysqli_query($conn, $sql);
+	} catch (mysqli_sql_exception $e) {
+		die("Error logging in: " . $e->getMessage());
+	}
+	header("Location: failure.html");
   exit();  
 }
 

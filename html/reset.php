@@ -16,6 +16,15 @@ $user_reset = $_GET['reset'];
 // echo " user reset " . $user_reset;
 $decoded_reset = hex2bin($user_reset);
 $reg_password = $_GET['password'];
+$reg_password1 = $_GET['password1'];
+
+if($reg_password != $reg_password1) {
+	die("Passwords do not match.");
+}
+
+if($reg_password == "hello-world-i-am-a-password-so-secure") {
+	die("Password may not be the example password");
+}
 
 $user_sql = "SELECT * FROM users WHERE reset = '$decoded_reset' LIMIT 1";
 try {
@@ -33,16 +42,14 @@ if ($username_object != null) {
 
 $split_pass = explode("-",$reg_password);
 if(sizeof($split_pass) < 8) { // check if there are at least 8 words
-	echo "Password must be at least 8 words long";
-	return;
+	die("Password must be at least 8 words long");
 }
 
 //echo "made it pass the first check";
 
 foreach($split_pass as $word) {
 	if (!ctype_lower($word)) { // check if everything is lowercase
-		echo "Password must be completely lowercase";
-		return;
+		die("Password must be completely lowercase");
 	}
 }
 
@@ -62,8 +69,7 @@ try{
 			}
 		}
 		if(!$found) {
-			echo "Password only have valid dictionary words: ". $split_pass[$i]." is not a valid word";
-			return;
+			die("Password must only have valid dictionary words: ". $split_pass[$i]." is not a valid word");
 		}
 	}
 	fclose($file);
@@ -95,17 +101,17 @@ if($salt_object != null) {
 	die("No user found with that username");
 }
 
-$sql = "UPDATE users SET hashed_password = '$hashed_password' WHERE username = '$username'";
+$sql = "UPDATE users SET hashed_password = '$hashed_password', reset = NULL, num_password_reset = num_password_reset + 1 WHERE username = '$username'";
 try {
 	$result = mysqli_query($conn, $sql);
 } catch (mysqli_sql_exception $e) {
 	die("Error updating password: " . $e->getMessage());
 }
 if ($result == 1){//password successfully updated
-    header("Location: success.html");
+	header("Location: reset_success.html");
   exit();
 } else {//password did not update
-  header("Location: failure.html");
+	header("Location: reset_failure.html");
   exit();  
 }
 
