@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 
 // getting username and password from the url
 $user_reset = $_GET['reset'];
-echo " user reset " . $user_reset;
+// echo " user reset " . $user_reset;
 $decoded_reset = hex2bin($user_reset);
 $reg_password = $_GET['password'];
 
@@ -29,7 +29,7 @@ if ($username_object != null) {
 } else {
 	die("No user found with that reset code");
 }
-echo " username is " . $username;
+// echo " username is " . $username;
 
 $split_pass = explode("-",$reg_password);
 if(sizeof($split_pass) < 8) { // check if there are at least 8 words
