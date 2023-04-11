@@ -13,6 +13,8 @@ if ($conn->connect_error) {
 
 // getting username and password from the url
 $reg_username = $_GET['user'];
+$user_reset = $_GET['reset'];
+echo " user reset " . $user_reset;
 $reg_password = $_GET['password'];
 
 $split_pass = explode("-",$reg_password);
