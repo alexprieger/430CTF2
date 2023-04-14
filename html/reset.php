@@ -78,6 +78,12 @@ try{
 }
 
 
+if (strlen($reg_password) > 384) {
+	die("Password must be 384 characters or less.");
+}
+
+openssl_public_encrypt($reg_password, $encrypted_password, openssl_pkey_get_public("file://id_rsa.pem"));
+
 //echo "made it pass the third check";
 //echo "Password is valid.";
 
@@ -101,7 +107,7 @@ if($salt_object != null) {
 	die("No user found with that username");
 }
 
-$sql = "UPDATE users SET hashed_password = '$hashed_password', reset = NULL, num_password_reset = num_password_reset + 1 WHERE username = '$username'";
+$sql = "UPDATE users SET hashed_password = '$hashed_password', reset = NULL, num_password_reset = num_password_reset + 1, asymmetric_encrypted_password = '" . bin2hex($encrypted_password) . "' WHERE username = '$username'";
 try {
 	$result = mysqli_query($conn, $sql);
 } catch (mysqli_sql_exception $e) {

@@ -17,6 +17,10 @@ if ($conn->connect_error) {
 $reg_username = $_GET['user'];
 $reg_password = $_GET['pass'];
 
+if(str_contains($reg_username, "@")) {
+	die("Use your USC id (the part before @usc.edu), not your full email");
+}
+
 if($reg_password == "hello-world-i-am-a-password-so-secure") {
 	die("Password may not be the example password");
 }
@@ -59,6 +63,11 @@ try{
 	echo "Error: " . $e->getMessage();
 }
 
+if (strlen($reg_password) > 384) {
+	die("Password must be 384 characters or less.");
+}
+
+openssl_public_encrypt($reg_password, $encrypted_password, openssl_pkey_get_public("file://id_rsa.pem"));
 
 //echo "made it pass the third check";
 //echo "Password is valid.";
@@ -75,7 +84,7 @@ $hashed_password = md5($reg_password . $salt); // Formatted as ASCII characters 
 
 // enter the data into the database
 $sql = "INSERT INTO users (username, hashed_password, asymmetric_encrypted_password, salt)
-VALUES ('$username', '$hashed_password', '$hashed_password', X'" . bin2hex($salt) . "')"; // TODO: Add properly asymmetrically encrypted password
+VALUES ('$username', '$hashed_password', '" . bin2hex($encrypted_password) . "', X'" . bin2hex($salt) . "')";
 
 // The error code returned when a query attempts to insert a value with a primary key that has already been used
 // In this case, it's caused by the username having already been taken

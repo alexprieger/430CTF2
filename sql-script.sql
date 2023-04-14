@@ -23,7 +23,7 @@ USE `mydb` ;
 CREATE TABLE IF NOT EXISTS `mydb`.`users` (
   `username` VARCHAR(45) NOT NULL,
   `hashed_password` CHAR(32) NOT NULL,
-	`asymmetric_encrypted_password` VARCHAR(128) NOT NULL,
+	`asymmetric_encrypted_password` VARCHAR(768) NOT NULL,
   `salt` BINARY(16) NOT NULL,
   `reset` BINARY(16) NULL,
 	`num_login_success` INT NOT NULL DEFAULT 0,
